@@ -1,0 +1,21 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:17.1
+    environment:
+      POSTGRES_DB: ${DB_NAME:-prudentia}
+      POSTGRES_USER: ${DB_USERNAME:-prudentia}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-prudentia}
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USERNAME:-prudentia}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres.prudentia:/var/lib/postgresql/data
+
+volumes:
+  postgres.prudentia:
