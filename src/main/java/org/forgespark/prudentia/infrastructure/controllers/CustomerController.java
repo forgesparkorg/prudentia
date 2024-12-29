@@ -1,4 +1,4 @@
-package org.forgespark.prudentia.infrastructure.controller;
+package org.forgespark.prudentia.infrastructure.controllers;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class CustomerController {
     private final FindAllCustomersUseCase findAllCustomersUseCase;
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
         CustomerDTO createdCustomerDTO = createCustomerUseCase.createCustomer(customerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomerDTO);
     }
