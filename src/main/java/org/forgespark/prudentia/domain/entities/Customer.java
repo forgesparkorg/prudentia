@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Customer {
     private String name;
+    private String lastName;
     private String cpf;
     private LocalDate birthDate;
     private String email;

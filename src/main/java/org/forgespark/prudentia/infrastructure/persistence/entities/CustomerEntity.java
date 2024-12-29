@@ -36,30 +36,27 @@ public class CustomerEntity {
     @UpdateTimestamp
     private OffsetDateTime updatedAt;
 
+    @Column(name = "name", nullable = false)
     @Size(max = 100, message = "Name is invalid: must have 100 characters")
-    @Column(name = "name",
-            nullable = false)
     private String name;
 
-    @Column(name = "cpf",
-            nullable = false,
-            unique = true)
-    @CPF(message = "Invalid CPF: must be a valid CPF")
+    @Column(name = "last_name")
+    @Size(max = 120, message = "Last name must have at most 120 characters")
+    private String lastName;
+
+    @Column(name = "cpf", nullable = false, unique = true)
+    @CPF(message = "Must be a valid CPF")
     private String cpf;
 
-    @Column(name = "birth_date",
-            nullable = false)
+    @Column(name = "birth_date", nullable = false)
     @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
-    @Column(name = "email",
-            nullable = false,
-            unique = true)
-    @Email(message = "Invalid email: must be a valid email")
+    @Column(name = "email", nullable = false, unique = true)
+    @Email(message = "Must be a valid email")
     private String email;
 
-    @Column(name = "phone",
-            nullable = false)
-    @Size(max = 15, message = "Phone is invalid: must have 15 digits")
+    @Column(name = "phone", nullable = false)
+    @Size(max = 15, message = "Phone must have at most 15 characters")
     private String phone;
 }

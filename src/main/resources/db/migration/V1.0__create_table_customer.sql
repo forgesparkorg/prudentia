@@ -9,6 +9,7 @@ CREATE TABLE customer
     created_at TIMESTAMPTZ        DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at TIMESTAMPTZ        DEFAULT CURRENT_TIMESTAMP NOT NULL,
     name       VARCHAR(100)                                 NOT NULL,
+    last_name  VARCHAR(120)                                 NOT NULL,
     cpf        VARCHAR(14)                                  NOT NULL UNIQUE,
     birth_date DATE                                         NOT NULL,
     email      VARCHAR(255)                                 NOT NULL UNIQUE,
