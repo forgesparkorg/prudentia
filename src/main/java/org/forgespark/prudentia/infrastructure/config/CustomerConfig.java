@@ -19,8 +19,8 @@ public class CustomerConfig {
     }
 
     @Bean
-    FindAllCustomersUseCase findAllCustomersUserCase(CustomerRepository repository) {
-        return new FindAllCustomersUseCase(repository);
+    FindAllCustomersUseCase findAllCustomersUserCase(CustomerRepository repository, CustomerDTOMapper mapper) {
+        return new FindAllCustomersUseCase(repository, mapper);
     }
 
     @Bean

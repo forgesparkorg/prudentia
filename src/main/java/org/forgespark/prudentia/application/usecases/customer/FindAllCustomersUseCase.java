@@ -13,6 +13,7 @@ import java.util.List;
 public class FindAllCustomersUseCase {
 
     private final CustomerRepository repository;
+    private final CustomerDTOMapper CustomerDTOMapper;
 
     @Transactional(readOnly = true)
     public List<CustomerDTO> findAllCustomers() {
