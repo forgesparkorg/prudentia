@@ -1,5 +1,6 @@
 package org.forgespark.prudentia.infrastructure.config;
 
+import org.forgespark.prudentia.application.mappers.CustomerDTOMapper;
 import org.forgespark.prudentia.application.ports.CustomerRepository;
 import org.forgespark.prudentia.application.usecases.customer.CreateCustomerUseCase;
 import org.forgespark.prudentia.application.usecases.customer.FindAllCustomersUseCase;
@@ -13,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class CustomerConfig {
 
     @Bean
-    CreateCustomerUseCase createCustomerUserCase(CustomerRepository repository) {
-        return new CreateCustomerUseCase(repository);
+    CreateCustomerUseCase createCustomerUserCase(CustomerRepository repository, CustomerDTOMapper mapper) {
+        return new CreateCustomerUseCase(repository, mapper);
     }
 
     @Bean
@@ -25,6 +26,11 @@ public class CustomerConfig {
     @Bean
     CustomerRepositoryImpl customerRepositoryImpl(JpaCustomerRepository jpaRepository, CustomerEntityMapper mapper) {
         return new CustomerRepositoryImpl(jpaRepository, mapper);
+    }
+
+    @Bean
+    CustomerDTOMapper customerDTOMapper() {
+        return new CustomerDTOMapper();
     }
 
     @Bean

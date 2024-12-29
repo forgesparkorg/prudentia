@@ -4,7 +4,7 @@ import org.forgespark.prudentia.application.dtos.CustomerDTO;
 import org.forgespark.prudentia.domain.entities.Customer;
 
 public class CustomerDTOMapper {
-    public static Customer toDomain(CustomerDTO customerDTO) {
+    public Customer toDomain(CustomerDTO customerDTO) {
         return Customer.builder()
                 .name(customerDTO.getName())
                 .lastName(customerDTO.getLastName())
@@ -15,7 +15,7 @@ public class CustomerDTOMapper {
                 .build();
     }
 
-    public static CustomerDTO toDTO(Customer customer) {
+    public CustomerDTO toDTO(Customer customer) {
         return CustomerDTO.builder()
                 .name(customer.getName())
                 .lastName(customer.getLastName())
