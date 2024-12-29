@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateCustomerUseCase {
 
     private final CustomerRepository repository;
-    private final CustomerDTOMapper CustomerDTOMapper;
+    private final CustomerDTOMapper customerDTOMapper;
 
     @Transactional
     public CustomerDTO createCustomer(CustomerDTO customerDTO) {
-        Customer customer = CustomerDTOMapper.toDomain(customerDTO);
+        Customer customer = customerDTOMapper.toDomain(customerDTO);
         Customer createdCustomer = repository.saveCustomer(customer);
-        return CustomerDTOMapper.toDTO(createdCustomer);
+        return customerDTOMapper.toDTO(createdCustomer);
     }
 }

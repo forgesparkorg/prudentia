@@ -14,18 +14,21 @@ import org.springframework.context.annotation.Configuration;
 public class CustomerConfig {
 
     @Bean
-    CreateCustomerUseCase createCustomerUserCase(CustomerRepository repository, CustomerDTOMapper mapper) {
-        return new CreateCustomerUseCase(repository, mapper);
+    CreateCustomerUseCase createCustomerUserCase(CustomerRepository customerRepository,
+                                                 CustomerDTOMapper customerDTOMapper) {
+        return new CreateCustomerUseCase(customerRepository, customerDTOMapper);
     }
 
     @Bean
-    FindAllCustomersUseCase findAllCustomersUserCase(CustomerRepository repository, CustomerDTOMapper mapper) {
-        return new FindAllCustomersUseCase(repository, mapper);
+    FindAllCustomersUseCase findAllCustomersUserCase(CustomerRepository customerRepository,
+                                                     CustomerDTOMapper customerDTOMapper) {
+        return new FindAllCustomersUseCase(customerRepository, customerDTOMapper);
     }
 
     @Bean
-    CustomerRepositoryImpl customerRepositoryImpl(JpaCustomerRepository jpaRepository, CustomerEntityMapper mapper) {
-        return new CustomerRepositoryImpl(jpaRepository, mapper);
+    CustomerRepositoryImpl customerRepositoryImpl(JpaCustomerRepository jpaCustomerRepository,
+                                                  CustomerEntityMapper customerEntityMapper) {
+        return new CustomerRepositoryImpl(jpaCustomerRepository, customerEntityMapper);
     }
 
     @Bean
