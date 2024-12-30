@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: postgres
-    image: postgres:17.1
+    image: postgres:17.2
     environment:
       POSTGRES_DB: ${DB_NAME:-prudentia}
       POSTGRES_USER: ${DB_USERNAME:-prudentia}
