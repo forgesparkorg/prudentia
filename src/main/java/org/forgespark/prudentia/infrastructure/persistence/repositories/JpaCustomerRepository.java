@@ -4,11 +4,12 @@ import org.forgespark.prudentia.infrastructure.persistence.entities.CustomerEnti
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface JpaCustomerRepository extends JpaRepository<CustomerEntity, UUID> {
 
     @Query("SELECT c FROM CustomerEntity c WHERE c.cpf = :cpf")
-    CustomerEntity findByCpf(String cpf);
+    Optional<CustomerEntity> findByCpf(String cpf);
 
 }

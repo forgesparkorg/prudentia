@@ -1,5 +1,6 @@
 package org.forgespark.prudentia.infrastructure.controllers.handlers;
 
+import org.forgespark.prudentia.infrastructure.exceptions.CustomerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,6 +13,18 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<ResponseError> handleCustomerNotFoundException(CustomerNotFoundException exception) {
+        ResponseError responseError = ResponseError.builder()
+                .message("Customer not found")
+                .status(HttpStatus.NOT_FOUND)
+                .timestamp(LocalDateTime.now())
+                .details(exception.getDetails())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseError);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseError> handleValidationExceptions(MethodArgumentNotValidException exception) {

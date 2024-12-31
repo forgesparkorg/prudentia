@@ -3,6 +3,7 @@ package org.forgespark.prudentia.infrastructure.adapters;
 import lombok.AllArgsConstructor;
 import org.forgespark.prudentia.application.ports.CustomerRepository;
 import org.forgespark.prudentia.domain.entities.Customer;
+import org.forgespark.prudentia.infrastructure.exceptions.CustomerNotFoundException;
 import org.forgespark.prudentia.infrastructure.persistence.entities.CustomerEntity;
 import org.forgespark.prudentia.infrastructure.persistence.mappers.CustomerEntityMapper;
 import org.forgespark.prudentia.infrastructure.persistence.repositories.JpaCustomerRepository;
@@ -18,17 +19,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer saveCustomer(Customer customer) {
-        CustomerEntity entity = mapper.toEntity(customer);
-        repository.save(entity);
-        CustomerEntity customerEntity = mapper.toEntity(findByCPF(customer.getCpf()));
-        return mapper.toDomain(customerEntity);
+        CustomerEntity customerEntity = mapper.toEntity(customer);
+        CustomerEntity savedEntity = repository.save(customerEntity);
+        return mapper.toDomain(savedEntity);
     }
 
     @Override
     public Customer findById(UUID id) {
         return repository.findById(id)
                 .map(mapper::toDomain)
-                .orElse(null);
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with ID", id.toString()));
     }
 
     @Override
@@ -40,7 +40,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer findByCPF(String cpf) {
-        CustomerEntity customerEntity = repository.findByCpf(cpf);
-        return mapper.toDomain(customerEntity);
+        return repository.findByCpf(cpf)
+                .map(mapper::toDomain)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with CPF", cpf));
     }
 }

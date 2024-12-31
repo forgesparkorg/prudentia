@@ -26,7 +26,7 @@ public class CustomerResponseDTO {
     @CPF(message = "Must be a valid CPF")
     private String cpf;
 
-    @NotBlank(message = "Birth date is required")
+    @NotNull(message = "Birth date is required")
     @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
