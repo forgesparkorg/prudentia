@@ -1,23 +1,23 @@
 package org.forgespark.prudentia.application.usecases.customer;
 
 import lombok.AllArgsConstructor;
-import org.forgespark.prudentia.application.dtos.customer.CustomerCreateDTO;
 import org.forgespark.prudentia.application.dtos.customer.CustomerResponseDTO;
 import org.forgespark.prudentia.application.mappers.CustomerDTOMapper;
 import org.forgespark.prudentia.application.ports.CustomerRepository;
 import org.forgespark.prudentia.domain.entities.Customer;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @AllArgsConstructor
-public class CreateCustomerUseCase {
+public class FindCustomerByIDUseCase {
 
     private final CustomerRepository repository;
     private final CustomerDTOMapper customerDTOMapper;
 
-    @Transactional
-    public CustomerResponseDTO execute(CustomerCreateDTO customerCreateDTO) {
-        Customer customer = customerDTOMapper.toDomain(customerCreateDTO);
-        Customer createdCustomer = repository.saveCustomer(customer);
-        return customerDTOMapper.toResponseDTO(createdCustomer);
+    @Transactional(readOnly = true)
+    public CustomerResponseDTO execute(UUID id) {
+        Customer customer = repository.findById(id);
+        return customerDTOMapper.toResponseDTO(customer);
     }
 }

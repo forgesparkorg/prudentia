@@ -26,10 +26,10 @@ repositories {
 dependencies {
     // Spring Boot
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
     // Database
     implementation("org.flywaydb:flyway-core")
@@ -41,8 +41,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
 
     // Test
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<Test> {

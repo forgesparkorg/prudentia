@@ -6,11 +6,13 @@ import lombok.Getter;
 import org.forgespark.prudentia.domain.valueobjects.Address;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Builder
 @Getter
 @AllArgsConstructor
 public class Customer {
+    private UUID id;
     private String name;
     private String lastName;
     private String cpf;

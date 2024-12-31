@@ -1,7 +1,7 @@
 package org.forgespark.prudentia.application.usecases.customer;
 
 import lombok.AllArgsConstructor;
-import org.forgespark.prudentia.application.dtos.CustomerDTO;
+import org.forgespark.prudentia.application.dtos.customer.CustomerResponseDTO;
 import org.forgespark.prudentia.application.mappers.CustomerDTOMapper;
 import org.forgespark.prudentia.application.ports.CustomerRepository;
 import org.forgespark.prudentia.domain.entities.Customer;
@@ -16,10 +16,10 @@ public class FindAllCustomersUseCase {
     private final CustomerDTOMapper customerDTOMapper;
 
     @Transactional(readOnly = true)
-    public List<CustomerDTO> findAllCustomers() {
+    public List<CustomerResponseDTO> execute() {
         List<Customer> customers = repository.findAllCustomers();
         return customers.stream()
-                .map(customerDTOMapper::toDTO)
+                .map(customerDTOMapper::toResponseDTO)
                 .toList();
     }
 }

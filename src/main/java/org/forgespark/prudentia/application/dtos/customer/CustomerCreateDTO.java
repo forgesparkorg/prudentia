@@ -1,4 +1,4 @@
-package org.forgespark.prudentia.application.dtos;
+package org.forgespark.prudentia.application.dtos.customer;
 
 import jakarta.validation.constraints.*;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import java.time.LocalDate;
 
 @Builder
 @Getter
-public class CustomerDTO {
-
+public class CustomerCreateDTO {
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must have at most 100 characters")
     private String name;
@@ -23,7 +22,7 @@ public class CustomerDTO {
     @CPF(message = "Must be a valid CPF")
     private String cpf;
 
-    @NotNull(message = "Birth date is required")
+    @NotBlank(message = "Birth date is required")
     @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 

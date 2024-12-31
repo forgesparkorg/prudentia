@@ -8,6 +8,7 @@ import org.forgespark.prudentia.infrastructure.persistence.mappers.CustomerEntit
 import org.forgespark.prudentia.infrastructure.persistence.repositories.JpaCustomerRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -19,7 +20,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public Customer saveCustomer(Customer customer) {
         CustomerEntity entity = mapper.toEntity(customer);
         repository.save(entity);
-        return mapper.toDomain(entity);
+        CustomerEntity customerEntity = mapper.toEntity(findByCPF(customer.getCpf()));
+        return mapper.toDomain(customerEntity);
+    }
+
+    @Override
+    public Customer findById(UUID id) {
+        return repository.findById(id)
+                .map(mapper::toDomain)
+                .orElse(null);
     }
 
     @Override
@@ -27,5 +36,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return repository.findAll().stream()
                 .map(mapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public Customer findByCPF(String cpf) {
+        CustomerEntity customerEntity = repository.findByCpf(cpf);
+        return mapper.toDomain(customerEntity);
     }
 }

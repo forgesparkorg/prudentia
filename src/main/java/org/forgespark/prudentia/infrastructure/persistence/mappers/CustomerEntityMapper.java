@@ -7,6 +7,7 @@ public class CustomerEntityMapper {
 
     public CustomerEntity toEntity(Customer customer) {
         return CustomerEntity.builder()
+                .id(customer.getId())
                 .name(customer.getName())
                 .lastName(customer.getLastName())
                 .cpf(customer.getCpf())
@@ -18,6 +19,7 @@ public class CustomerEntityMapper {
 
     public Customer toDomain(CustomerEntity customerEntity) {
         return Customer.builder()
+                .id(customerEntity.getId())
                 .name(customerEntity.getName())
                 .lastName(customerEntity.getLastName())
                 .cpf(customerEntity.getCpf())

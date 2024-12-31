@@ -4,6 +4,8 @@ import org.forgespark.prudentia.application.mappers.CustomerDTOMapper;
 import org.forgespark.prudentia.application.ports.CustomerRepository;
 import org.forgespark.prudentia.application.usecases.customer.CreateCustomerUseCase;
 import org.forgespark.prudentia.application.usecases.customer.FindAllCustomersUseCase;
+import org.forgespark.prudentia.application.usecases.customer.FindCustomerByCPFUseCase;
+import org.forgespark.prudentia.application.usecases.customer.FindCustomerByIDUseCase;
 import org.forgespark.prudentia.infrastructure.adapters.CustomerRepositoryImpl;
 import org.forgespark.prudentia.infrastructure.persistence.mappers.CustomerEntityMapper;
 import org.forgespark.prudentia.infrastructure.persistence.repositories.JpaCustomerRepository;
@@ -20,9 +22,21 @@ public class CustomerConfig {
     }
 
     @Bean
+    FindCustomerByIDUseCase findByIDUseCase(CustomerRepository customerRepository,
+                                            CustomerDTOMapper customerDTOMapper) {
+        return new FindCustomerByIDUseCase(customerRepository, customerDTOMapper);
+    }
+
+    @Bean
     FindAllCustomersUseCase findAllCustomersUserCase(CustomerRepository customerRepository,
                                                      CustomerDTOMapper customerDTOMapper) {
         return new FindAllCustomersUseCase(customerRepository, customerDTOMapper);
+    }
+
+    @Bean
+    FindCustomerByCPFUseCase findByCPFUseCase(CustomerRepository customerRepository,
+                                              CustomerDTOMapper customerDTOMapper) {
+        return new FindCustomerByCPFUseCase(customerRepository, customerDTOMapper);
     }
 
     @Bean
