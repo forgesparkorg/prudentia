@@ -8,9 +8,7 @@ CREATE TABLE customer
     cpf        VARCHAR(14)  NOT NULL UNIQUE,
     birth_date DATE         NOT NULL,
     email      VARCHAR(255) NOT NULL UNIQUE,
-    phone      VARCHAR(15)  NOT NULL,
-
-    CONSTRAINT chk_birth_date_past CHECK (birth_date < CURRENT_DATE)
+    phone      VARCHAR(15)  NOT NULL
 );
 
 CREATE INDEX idx_customer_email ON customer (email);
