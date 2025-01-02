@@ -4,11 +4,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.forgespark.prudentia.application.dtos.customer.CustomerCreateDTO;
-import org.forgespark.prudentia.application.dtos.customer.CustomerResponseDTO;
-import org.forgespark.prudentia.application.usecases.customer.CreateCustomerUseCase;
-import org.forgespark.prudentia.application.usecases.customer.FindAllCustomersUseCase;
-import org.forgespark.prudentia.application.usecases.customer.FindCustomerByCPFUseCase;
-import org.forgespark.prudentia.application.usecases.customer.FindCustomerByIDUseCase;
+import org.forgespark.prudentia.application.dtos.customer.CustomerDTO;
+import org.forgespark.prudentia.application.usecases.customer.*;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,28 +23,43 @@ public class CustomerController {
     private final FindAllCustomersUseCase findAllCustomersUseCase;
     private final FindCustomerByIDUseCase findCustomerByIDUseCase;
     private final FindCustomerByCPFUseCase findCustomerByCPFUseCase;
+    private final UpdateCustomerUseCase updateCustomerUseCase;
+    private final DeleteCustomerUseCase deleteCustomerUseCase;
 
     @PostMapping
-    public ResponseEntity<CustomerResponseDTO> createCustomer(@RequestBody @Valid CustomerCreateDTO customerCreateDTO) {
-        CustomerResponseDTO createdCustomerCreateDTO = createCustomerUseCase.execute(customerCreateDTO);
+    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody @Valid CustomerCreateDTO customerCreateDTO) {
+        CustomerDTO createdCustomerCreateDTO = createCustomerUseCase.execute(customerCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomerCreateDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerResponseDTO>> findAllCustomers() {
-        List<CustomerResponseDTO> customerResponseDTO = findAllCustomersUseCase.execute();
-        return ResponseEntity.status(HttpStatus.OK).body(customerResponseDTO);
+    public ResponseEntity<List<CustomerDTO>> findAllCustomers() {
+        List<CustomerDTO> customerDTO = findAllCustomersUseCase.execute();
+        return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
 
-    @GetMapping("/id/{id}")
-    public ResponseEntity<CustomerResponseDTO> findCustomerById(@PathVariable @NotNull UUID id) {
-        CustomerResponseDTO customerResponseDTO = findCustomerByIDUseCase.execute(id);
-        return ResponseEntity.status(HttpStatus.OK).body(customerResponseDTO);
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerDTO> findCustomerById(@PathVariable @NotNull UUID id) {
+        CustomerDTO customerDTO = findCustomerByIDUseCase.execute(id);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
 
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<CustomerResponseDTO> findByCpf(@PathVariable @NotNull @CPF String cpf) {
-        CustomerResponseDTO customerResponseDTO = findCustomerByCPFUseCase.execute(cpf);
-        return ResponseEntity.status(HttpStatus.OK).body(customerResponseDTO);
+    public ResponseEntity<CustomerDTO> findByCpf(@PathVariable @NotNull @CPF String cpf) {
+        CustomerDTO customerDTO = findCustomerByCPFUseCase.execute(cpf);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable @NotNull UUID id,
+                                                      @RequestBody @Valid CustomerDTO customerDTO) {
+        CustomerDTO updatedCustomer = updateCustomerUseCase.execute(id, customerDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedCustomer);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable @NotNull UUID id) {
+        deleteCustomerUseCase.execute(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

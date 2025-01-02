@@ -1,4 +1,4 @@
-package org.forgespark.prudentia.infrastructure.exceptions;
+package org.forgespark.prudentia.application.exceptions.customer;
 
 import lombok.Getter;
 

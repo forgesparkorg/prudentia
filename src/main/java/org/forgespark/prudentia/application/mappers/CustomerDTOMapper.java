@@ -1,53 +1,53 @@
 package org.forgespark.prudentia.application.mappers;
 
 import org.forgespark.prudentia.application.dtos.customer.CustomerCreateDTO;
-import org.forgespark.prudentia.application.dtos.customer.CustomerResponseDTO;
+import org.forgespark.prudentia.application.dtos.customer.CustomerDTO;
 import org.forgespark.prudentia.domain.entities.Customer;
 
 public class CustomerDTOMapper {
-    public Customer toDomain(CustomerCreateDTO dto) {
+    public Customer toDomain(CustomerCreateDTO customerCreateDTO) {
         return Customer.builder()
-                .name(dto.getName())
-                .lastName(dto.getLastName())
-                .cpf(dto.getCpf())
-                .birthDate(dto.getBirthDate())
-                .email(dto.getEmail())
-                .phone(dto.getPhone())
+                .name(customerCreateDTO.getName())
+                .lastName(customerCreateDTO.getLastName())
+                .cpf(customerCreateDTO.getCpf())
+                .birthDate(customerCreateDTO.getBirthDate())
+                .email(customerCreateDTO.getEmail())
+                .phone(customerCreateDTO.getPhone())
                 .build();
     }
 
-    public Customer toDomain(CustomerResponseDTO dto) {
+    public Customer toDomain(CustomerDTO customerDTO) {
         return Customer.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .lastName(dto.getLastName())
-                .cpf(dto.getCpf())
-                .birthDate(dto.getBirthDate())
-                .email(dto.getEmail())
-                .phone(dto.getPhone())
+                .id(customerDTO.getId())
+                .name(customerDTO.getName())
+                .lastName(customerDTO.getLastName())
+                .cpf(customerDTO.getCpf())
+                .birthDate(customerDTO.getBirthDate())
+                .email(customerDTO.getEmail())
+                .phone(customerDTO.getPhone())
                 .build();
     }
 
-    public CustomerResponseDTO toResponseDTO(Customer domain) {
-        return CustomerResponseDTO.builder()
-                .id(domain.getId())
-                .name(domain.getName())
-                .lastName(domain.getLastName())
-                .cpf(domain.getCpf())
-                .birthDate(domain.getBirthDate())
-                .email(domain.getEmail())
-                .phone(domain.getPhone())
+    public CustomerDTO toResponseDTO(Customer customerDomain) {
+        return CustomerDTO.builder()
+                .id(customerDomain.getId())
+                .name(customerDomain.getName())
+                .lastName(customerDomain.getLastName())
+                .cpf(customerDomain.getCpf())
+                .birthDate(customerDomain.getBirthDate())
+                .email(customerDomain.getEmail())
+                .phone(customerDomain.getPhone())
                 .build();
     }
 
-    public CustomerCreateDTO toCreateDTO(Customer domain) {
+    public CustomerCreateDTO toCreateDTO(Customer customerDomain) {
         return CustomerCreateDTO.builder()
-                .name(domain.getName())
-                .lastName(domain.getLastName())
-                .cpf(domain.getCpf())
-                .birthDate(domain.getBirthDate())
-                .email(domain.getEmail())
-                .phone(domain.getPhone())
+                .name(customerDomain.getName())
+                .lastName(customerDomain.getLastName())
+                .cpf(customerDomain.getCpf())
+                .birthDate(customerDomain.getBirthDate())
+                .email(customerDomain.getEmail())
+                .phone(customerDomain.getPhone())
                 .build();
     }
 }

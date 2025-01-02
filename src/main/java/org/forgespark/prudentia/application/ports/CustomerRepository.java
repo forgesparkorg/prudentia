@@ -13,4 +13,8 @@ public interface CustomerRepository {
     List<Customer> findAllCustomers();
 
     Customer findByCPF(String cpf);
+
+    void deleteCustomer(UUID id);
+
+    boolean isCustomerExists(UUID id);
 }

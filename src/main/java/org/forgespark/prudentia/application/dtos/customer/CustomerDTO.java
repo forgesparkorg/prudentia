@@ -10,8 +10,8 @@ import java.util.UUID;
 
 @Builder
 @Getter
-public class CustomerResponseDTO {
-    @NotBlank(message = "ID is required")
+public class CustomerDTO {
+    @NotNull(message = "ID is required")
     private UUID id;
 
     @NotBlank(message = "Name is required")

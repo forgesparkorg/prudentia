@@ -1,6 +1,6 @@
 package org.forgespark.prudentia.infrastructure.controllers.handlers;
 
-import org.forgespark.prudentia.infrastructure.exceptions.CustomerNotFoundException;
+import org.forgespark.prudentia.application.exceptions.customer.CustomerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
